@@ -3,205 +3,252 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> 小光 | Maritime Pixel Journey</title>
+    <title>小光 | 16-Bit Maritime RPG Journey</title>
     <!-- Google Fonts Pixel -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Retro Pixel Rules & Custom Styling */
+        /* 16-Bit Crisp Pixel Rendering */
         * {
-            font-family: 'Press Start 2P', monospace;
             image-rendering: pixelated;
             image-rendering: crisp-edges;
+            -webkit-font-smoothing: none;
         }
 
         body {
-            background-color: #0f172a;
-            color: #f8fafc;
+            background-color: #0b0f19;
+            color: #f1f5f9;
+            font-family: 'VT323', monospace;
+            font-size: 20px;
             overflow-x: hidden;
         }
 
-        /* Pixel Border Container */
-        .pixel-box {
-            background: #1e293b;
-            border: 4px solid #f59e0b;
+        .pixel-font {
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        /* 16-Bit Masterpiece RPG Dialog Box */
+        .rpg-box {
+            background: #181425;
+            border: 4px solid #8b6d43;
+            outline: 4px solid #2f2114;
             box-shadow: 
-                -4px 0 0 0 #000,
-                4px 0 0 0 #000,
-                0 -4px 0 0 #000,
-                0 4px 0 0 #000,
-                8px 8px 0px 0px rgba(0,0,0,0.5);
+                inset 0 0 0 4px #4a3b2c,
+                0 10px 25px rgba(0,0,0,0.8);
             position: relative;
+            border-radius: 4px;
         }
 
-        .pixel-box-blue {
-            background: #0f172a;
-            border: 4px solid #38bdf8;
+        .rpg-box-blue {
+            background: #0f1b29;
+            border: 4px solid #2b5784;
+            outline: 4px solid #09111a;
             box-shadow: 
-                -4px 0 0 0 #000,
-                4px 0 0 0 #000,
-                0 -4px 0 0 #000,
-                0 4px 0 0 #000,
-                6px 6px 0px 0px rgba(0,0,0,0.5);
+                inset 0 0 0 4px #1b3854,
+                0 10px 20px rgba(0,0,0,0.7);
+            border-radius: 4px;
         }
 
-        .pixel-btn {
-            background-color: #f59e0b;
-            color: #000;
-            border: none;
-            padding: 10px 16px;
+        .rpg-header-banner {
+            background: linear-gradient(180deg, #9e2835 0%, #6e1a24 100%);
+            border-bottom: 4px solid #2f2114;
+            box-shadow: inset 0 -3px 0 #3e1017;
+        }
+
+        /* 16-Bit RPG Buttons */
+        .rpg-btn {
+            background: linear-gradient(180deg, #f3a83b 0%, #bd6a18 100%);
+            color: #1e0f02;
+            border: 3px solid #2f2114;
+            box-shadow: 
+                inset 0 2px 0 #fbd888,
+                inset 0 -3px 0 #874308,
+                0 4px 0 #000;
             cursor: pointer;
-            box-shadow: 
-                -3px 0 0 0 #000,
-                3px 0 0 0 #000,
-                0 -3px 0 0 #000,
-                0 3px 0 0 #000,
-                0 4px 0 0 #b45309;
-            transition: all 0.1s ease;
+            text-shadow: 0 1px 0 #ffe29d;
+            font-family: 'Press Start 2P', cursive;
+            transition: all 0.05s ease;
+            user-select: none;
         }
 
-        .pixel-btn:hover {
-            background-color: #fbbf24;
+        .rpg-btn:hover {
+            background: linear-gradient(180deg, #ffbe53 0%, #d47b1e 100%);
             transform: translateY(-2px);
-        }
-
-        .pixel-btn:active {
-            transform: translateY(2px);
             box-shadow: 
-                -3px 0 0 0 #000,
-                3px 0 0 0 #000,
-                0 -3px 0 0 #000,
-                0 3px 0 0 #000,
-                0 1px 0 0 #b45309;
+                inset 0 2px 0 #fff0ba,
+                inset 0 -3px 0 #9e4e09,
+                0 6px 0 #000;
         }
 
-        .pixel-tag {
-            display: inline-block;
-            background: #0284c7;
-            color: #ffffff;
-            padding: 6px 10px;
-            font-size: 10px;
-            border: 2px solid #000;
-            box-shadow: 2px 2px 0px #000;
+        .rpg-btn:active {
+            transform: translateY(3px);
+            box-shadow: 
+                inset 0 2px 0 #874308,
+                0 1px 0 #000;
         }
 
-        /* Canvas Horizon Container */
-        #canvas-container {
-            width: 100%;
-            height: 320px;
+        .rpg-badge {
+            background: #25131a;
+            border: 2px solid #e06f8b;
+            color: #eaadea;
+            padding: 2px 8px;
+            font-size: 14px;
+            box-shadow: inset 0 0 0 1px #8b2b43;
+        }
+
+        /* Hero Scene Container */
+        #canvas-wrapper {
             position: relative;
+            width: 100%;
+            height: 380px;
             background: #000;
-            border-bottom: 4px solid #f59e0b;
+            border-bottom: 4px solid #2f2114;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.9);
         }
 
         canvas {
             display: block;
             width: 100%;
             height: 100%;
-            image-rendering: pixelated;
         }
 
-        /* Scrollbar Retro Style */
+        /* Custom Pixel Scrollbar */
         ::-webkit-scrollbar {
-            width: 10px;
+            width: 12px;
         }
         ::-webkit-scrollbar-track {
-            background: #0f172a;
+            background: #0f141d;
         }
         ::-webkit-scrollbar-thumb {
-            background: #f59e0b;
-            border: 2px solid #000;
+            background: #8b6d43;
+            border: 2px solid #2f2114;
         }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
 
-    <!-- Top Pixel Banner & Controls -->
-    <header class="bg-slate-900 border-b-4 border-black p-4 flex justify-between items-center z-10">
-        <div class="flex items-center space-x-2">
-            <span class="text-amber-400 text-sm md:text-base">⚓ LY PHU QUANG</span>
-        </div>
+    <!-- RPG Header Nav -->
+    <header class="rpg-header-banner p-3 px-4 flex justify-between items-center z-20">
         <div class="flex items-center space-x-3">
-            <button id="audio-toggle" class="pixel-btn text-xs flex items-center gap-2">
-                <span id="audio-icon">🔇</span> <span id="audio-text">SOUND OFF</span>
+            <span class="text-2xl">🧭</span>
+            <span class="pixel-font text-amber-200 text-xs md:text-sm tracking-wider drop-shadow-[0_2px_0_#000]">
+                LY PHU QUANG :: MARITIME RPG
+            </span>
+        </div>
+        <div class="flex items-center gap-3">
+            <button id="audio-btn" class="rpg-btn text-[10px] px-3 py-2 flex items-center gap-2">
+                <span id="audio-icon">🔇</span> <span id="audio-text">BGM OFF</span>
             </button>
         </div>
     </header>
 
-    <!-- 8-Bit Pixel Canvas Scene -->
-    <div id="canvas-container">
-        <canvas id="pixelCanvas"></canvas>
+    <!-- 16-Bit Masterpiece Canvas Hero Scene -->
+    <div id="canvas-wrapper">
+        <canvas id="rpgCanvas"></canvas>
+        <!-- Overlay Vintage Scanlines effect -->
+        <div class="absolute inset-0 pointer-events-none opacity-10 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%)] bg-[length:100%_4px]"></div>
     </div>
 
-    <!-- Main Content Container -->
-    <main class="max-w-4xl mx-auto p-4 md:p-8 flex-grow w-full space-y-8">
+    <!-- Main RPG Content Layout -->
+    <main class="max-w-5xl mx-auto p-4 md:p-8 flex-grow w-full space-y-8 relative z-10">
 
-        <!-- Welcome Banner -->
-        <section class="pixel-box p-6 text-center space-y-4">
-            <h1 class="text-amber-400 text-sm md:text-lg leading-relaxed">
-                CHÀO MỪNG ĐẾN VỚI HÀNH TRÌNH RA KHƠI
+        <!-- Welcome Banner / Quest Log -->
+        <section class="rpg-box p-6 md:p-8 text-center space-y-4">
+            <div class="inline-block bg-amber-950/80 border-2 border-amber-600/50 px-4 py-1 rounded text-amber-300 text-sm pixel-font">
+                📜 CAPTAIN'S LOGBOOK
+            </div>
+            <h1 class="pixel-font text-amber-300 text-sm md:text-lg leading-relaxed drop-shadow-[0_2px_0_#000]">
+                HÀNH TRÌNH RA KHƠI: HÀNG HẢI & CÔNG NGHỆ
             </h1>
-            <p class="text-xs text-slate-300 leading-loose">
-                Nơi chia sẻ góc nhìn về Hàng hải, Công nghệ AI & Những hành trình khám phá tri thức mới.
+            <p class="text-slate-300 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+                Chào mừng bạn đến với góc nhỏ 16-bit! Đây là nơi ghi chép lại những chuyến hải trình vận tải biển, khám phá mô hình AI local và các dự án công nghệ thú vị.
             </p>
-            <div class="flex justify-center gap-2 flex-wrap pt-2">
-                <span class="pixel-tag">#MARITIME</span>
-                <span class="pixel-tag">#TECH_AI</span>
-                <span class="pixel-tag">#BLOG_JOURNAL</span>
+            <div class="flex justify-center gap-3 flex-wrap pt-2">
+                <span class="rpg-badge">⚓ Vận Tải Biển</span>
+                <span class="rpg-badge">💻 Local AI Workstation</span>
+                <span class="rpg-badge">🕹️ Indie Dev</span>
             </div>
         </section>
 
-        <!-- About & Latest Articles Grid -->
+        <!-- Main Cards Grid -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-            <!-- Profile Sidebar -->
-            <div class="pixel-box-blue p-5 md:col-span-1 space-y-4">
-                <div class="text-center space-y-2">
-                    <div class="w-16 h-16 mx-auto bg-amber-400 border-2 border-black flex items-center justify-center text-2xl">
-                        ⚓
+            <!-- Character Profile Sidebar -->
+            <div class="rpg-box-blue p-5 md:col-span-1 space-y-5">
+                <div class="text-center space-y-3">
+                    <!-- Avatar Frame -->
+                    <div class="w-20 h-20 mx-auto bg-slate-900 border-4 border-amber-600 rounded flex items-center justify-center text-4xl shadow-inner relative">
+                        🧙‍♂️
+                        <div class="absolute -bottom-2 -right-2 bg-amber-500 text-black text-[9px] font-bold px-1 rounded pixel-font">LV.99</div>
                     </div>
-                    <h2 class="text-sky-400 text-xs">LÝ PHÚ QUẢNG</h2>
-                    <p class="text-[10px] text-slate-400">Maritime & Tech Explorer</p>
+                    <div>
+                        <h2 class="pixel-font text-amber-400 text-xs">LÝ PHÚ QUẢNG</h2>
+                        <p class="text-sky-300 text-sm mt-1">Maritime Officer & AI Tinkerer</p>
+                    </div>
                 </div>
-                <hr class="border-dashed border-sky-800">
-                <div class="text-[10px] leading-relaxed text-slate-300 space-y-3">
-                    <p>📍 Quản lý thông tin & Chia sẻ kiến thức hàng hải.</p>
-                    <p>💻 Nghiên cứu 🖥️ AI local, tự động hóa & lập trình web.</p>
+
+                <div class="border-t-2 border-dashed border-sky-900 pt-4 space-y-3 text-slate-300 text-base">
+                    <div class="flex items-center gap-2">
+                        <span>🗺️</span> <span>HQ: Hồ Chí Minh, Việt Nam</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span>⚓</span> <span>Lĩnh vực: Hàng Hải / Shipping</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span>⚡</span> <span>Vũ khí: Workstation RTX & AI</span>
+                    </div>
+                </div>
+
+                <div class="pt-2">
+                    <button id="sparkle-btn" class="rpg-btn w-full text-[10px] py-3 text-center">
+                        ✨ CAST MAGIC SPARKLE
+                    </button>
                 </div>
             </div>
 
-            <!-- Articles List -->
+            <!-- Blog / Quest Posts List -->
             <div class="md:col-span-2 space-y-4">
-                <h3 class="text-amber-400 text-xs mb-2">>>> BÀI VIẾT MỚI NHẤT</h3>
+                <div class="flex items-center justify-between">
+                    <h3 class="pixel-font text-amber-400 text-xs flex items-center gap-2">
+                        <span>⚔️</span> NHẬT KÝ BÀI VIẾT
+                    </h3>
+                    <span class="text-slate-500 text-sm">Sorted by date</span>
+                </div>
 
-                <!-- Article Card 1 -->
-                <article class="pixel-box p-4 space-y-2 hover:border-amber-300 transition-colors cursor-pointer">
-                    <div class="flex justify-between items-center text-[9px] text-amber-500">
-                        <span>2026-10-23</span>
-                        <span>[ HÀNG HẢI ]</span>
+                <!-- Quest Card 1 -->
+                <article class="rpg-box p-5 space-y-3 hover:border-amber-400 transition-all cursor-pointer group hover:-translate-y-1">
+                    <div class="flex justify-between items-center text-amber-400 text-xs pixel-font">
+                        <span>CHAPTER 01</span>
+                        <span class="text-sky-400">[ HÀNG HẢI ]</span>
                     </div>
-                    <h4 class="text-xs text-white leading-normal">
-                        Hành trình từ Trader đến Thế giới Vận tải Biển
+                    <h4 class="text-xl font-bold text-amber-100 group-hover:text-amber-300 transition-colors">
+                        ⚓ Từ Trader Sàn Giao Dịch Đến Bến Cảng Vận Tải Quốc Tế
                     </h4>
-                    <p class="text-[10px] text-slate-400 leading-relaxed">
-                        Những trải nghiệm thực tế, góc nhìn công nghệ và sự chuẩn bị khi bước vào môi trường vận tải biển quốc tế...
+                    <p class="text-slate-300 text-base leading-relaxed">
+                        Nhìn lại bước chuyển mình thực tế từ phân tích dữ liệu thị trường sang thế giới chuỗi cung ứng hàng hải toàn cầu và những bài học đắt giá trên những con tàu lớn...
                     </p>
+                    <div class="text-right text-amber-500 text-xs pixel-font pt-1">
+                        READ MORE >>>
+                    </div>
                 </article>
 
-                <!-- Article Card 2 -->
-                <article class="pixel-box p-4 space-y-2 hover:border-amber-300 transition-colors cursor-pointer">
-                    <div class="flex justify-between items-center text-[9px] text-amber-500">
-                        <span>2026-10-20</span>
-                        <span>[ AI & TECH ]</span>
+                <!-- Quest Card 2 -->
+                <article class="rpg-box p-5 space-y-3 hover:border-amber-400 transition-all cursor-pointer group hover:-translate-y-1">
+                    <div class="flex justify-between items-center text-amber-400 text-xs pixel-font">
+                        <span>CHAPTER 02</span>
+                        <span class="text-purple-400">[ TECH & AI ]</span>
                     </div>
-                    <h4 class="text-xs text-white leading-normal">
-                        Tối ưu hóa Local AI trên máy trạm Workstation
+                    <h4 class="text-xl font-bold text-amber-100 group-hover:text-amber-300 transition-colors">
+                        🧠 Xây Dựng Trạm Máy Local AI Chuyên Dụng Tận Dụng VRAM
                     </h4>
-                    <p class="text-[10px] text-slate-400 leading-relaxed">
-                        Trải nghiệm chạy Ollama, quản lý VRAM GPU và tối ưu các mô hình ngôn ngữ cho tác vụ công việc thực tế...
+                    <p class="text-slate-300 text-base leading-relaxed">
+                        Kinh nghiệm cấu hình Ollama, DeepSeek R1 và các mô hình LLM chạy mượt mà ngay trên máy trạm cá nhân bảo mật tuyệt đối không phụ thuộc đám mây...
                     </p>
+                    <div class="text-right text-amber-500 text-xs pixel-font pt-1">
+                        READ MORE >>>
+                    </div>
                 </article>
 
             </div>
@@ -209,221 +256,338 @@
 
     </main>
 
-    <!-- Retro Footer -->
-    <footer class="bg-black border-t-4 border-slate-800 p-4 text-center text-[9px] text-slate-500">
-        <p>© 2026 LY PHU QUANG • BUILT WITH GITHUB PAGES & 8-BIT CANVAS</p>
+    <!-- RPG Footer -->
+    <footer class="bg-slate-950 border-t-4 border-amber-950 p-6 text-center text-slate-500 text-sm space-y-2">
+        <p class="pixel-font text-[10px] text-amber-600">© 2026 LY PHU QUANG • 16-BIT RETRO ENGINE</p>
+        <p>Crafted with HTML5 Canvas, Web Audio API & Pure Pixel Art Passion</p>
     </footer>
 
-    <!-- JavaScript Pixel Canvas & Web Audio -->
+    <!-- 16-Bit Pixel Art Graphics Engine Engine Script -->
     <script>
-        // --- 1. Canvas Setup & Pixel Graphics Engine ---
-        const canvas = document.getElementById('pixelCanvas');
+        // --- 1. CANVAS SETUP ---
+        const canvas = document.getElementById('rpgCanvas');
         const ctx = canvas.getContext('2d');
-        const container = document.getElementById('canvas-container');
 
-        // Low internal resolution for authentic pixel art scale
-        const V_WIDTH = 320;
-        const V_HEIGHT = 160;
+        // Internal 16-bit Render Resolution (Crisp 16:9 ratio)
+        const W = 480;
+        const H = 240;
 
-        function resizeCanvas() {
-            canvas.width = V_WIDTH;
-            canvas.height = V_HEIGHT;
+        function initCanvas() {
+            canvas.width = W;
+            canvas.height = H;
         }
-        resizeCanvas();
+        initCanvas();
 
-        let frameCount = 0;
+        let frame = 0;
 
-        // Wave parameters
-        const waveOffset = 0;
+        // --- 16-BIT COLOR PALETTE (Cozy Stardew/RPG Style) ---
+        const C = {
+            skyTop: '#1e1035',
+            skyMid1: '#431339',
+            skyMid2: '#7d1e38',
+            skyLow: '#b23932',
+            skyHorizon: '#e06f3b',
+            sunYellow: '#ffd966',
+            sunGlow: '#f49a37',
+            cloudDark: '#361830',
+            cloudLight: '#e08368',
+            seaDeep: '#0f2a4a',
+            seaMid: '#16486b',
+            seaBright: '#24739d',
+            seaFoam: '#aee2f9',
+            sunReflect: '#ffbe53',
+            shipHull: '#181425',
+            shipDeck: '#5a3921',
+            shipCabin: '#f0e6d2',
+            shipRed: '#a82424',
+            shipGold: '#f3a83b'
+        };
 
-        // --- 8-Bit Pixel Renderer ---
-        function drawPixelScene() {
-            frameCount++;
+        // Particles System
+        const particles = [];
 
-            // Clear Background
-            ctx.fillStyle = '#0f172a';
-            ctx.fillRect(0, 0, V_WIDTH, V_HEIGHT);
+        function createSparkle(x, y) {
+            for (let i = 0; i < 12; i++) {
+                particles.push({
+                    x: x,
+                    y: y,
+                    vx: (Math.random() - 0.5) * 4,
+                    vy: (Math.random() - 0.5) * 4 - 1,
+                    size: Math.random() > 0.5 ? 2 : 3,
+                    color: ['#ffd966', '#f3a83b', '#aee2f9', '#ffffff'][Math.floor(Math.random() * 4)],
+                    life: 30 + Math.random() * 20
+                });
+            }
+        }
 
-            // 1. Sky Gradient (Pixelated rows)
-            const skyColors = [
-                '#1e1b4b', '#311042', '#4c0519', '#831843', 
-                '#9f1239', '#be123c', '#fb7185', '#fde047'
+        // --- DRAWING FUNCTIONS ---
+
+        // 1. Detailed 16-Bit Sunset Sky Gradient & Dithering
+        function draw16BitSky() {
+            const bands = [
+                { y: 0, h: 25, color: C.skyTop },
+                { y: 25, h: 25, color: C.skyMid1 },
+                { y: 50, h: 25, color: C.skyMid2 },
+                { y: 75, h: 25, color: C.skyLow },
+                { y: 100, h: 25, color: C.skyHorizon }
             ];
-            const skyHeight = 90;
-            const bandHeight = skyHeight / skyColors.length;
 
-            for (let i = 0; i < skyColors.length; i++) {
-                ctx.fillStyle = skyColors[i];
-                ctx.fillRect(0, i * bandHeight, V_WIDTH, bandHeight + 1);
+            bands.forEach((b) => {
+                ctx.fillStyle = b.color;
+                ctx.fillRect(0, b.y, W, b.h);
+            });
+
+            // Dithering pattern between bands for smooth 16-bit look
+            for (let b = 0; b < bands.length - 1; b++) {
+                const yBoundary = bands[b].y + bands[b].h;
+                ctx.fillStyle = bands[b + 1].color;
+                for (let x = 0; x < W; x += 2) {
+                    ctx.fillRect(x + (yBoundary % 4 === 0 ? 0 : 1), yBoundary - 2, 1, 1);
+                    ctx.fillRect(x + (yBoundary % 4 === 0 ? 1 : 0), yBoundary - 1, 1, 1);
+                }
             }
-
-            // 2. Pixel Sun
-            const sunX = V_WIDTH / 2;
-            const sunY = 62;
-            const sunRadius = 22;
-
-            ctx.fillStyle = '#fef08a';
-            ctx.beginPath();
-            ctx.arc(sunX, sunY, sunRadius, 0, Math.PI * 2);
-            ctx.fill();
-
-            // Pixel Sun Glow Ring
-            ctx.fillStyle = 'rgba(253, 224, 71, 0.3)';
-            ctx.fillRect(sunX - sunRadius - 4, sunY - 2, (sunRadius + 4) * 2, 4);
-
-            // 3. Floating Clouds (Pixelated)
-            drawCloud((frameCount * 0.2) % (V_WIDTH + 60) - 40, 20);
-            drawCloud(((frameCount * 0.15) + 160) % (V_WIDTH + 60) - 40, 35);
-
-            // 4. Ocean Surface
-            const oceanY = skyHeight;
-            const oceanHeight = V_HEIGHT - oceanY;
-
-            ctx.fillStyle = '#0284c7';
-            ctx.fillRect(0, oceanY, V_WIDTH, oceanHeight);
-
-            // Sun Reflection on Water (Pixel Stripes)
-            for (let y = oceanY + 2; y < V_HEIGHT; y += 4) {
-                const lineWidth = Math.max(2, (y - oceanY) * 1.5 + Math.sin(y + frameCount * 0.1) * 6);
-                const alpha = Math.max(0.1, 1 - (y - oceanY) / oceanHeight);
-                ctx.fillStyle = `rgba(254, 240, 138, ${alpha})`;
-                ctx.fillRect(sunX - lineWidth / 2, y, lineWidth, 2);
-            }
-
-            // Ocean Waves Animation
-            ctx.fillStyle = '#0369a1';
-            for (let x = 0; x < V_WIDTH; x += 8) {
-                const waveY = oceanY + Math.sin((x + frameCount * 2) * 0.05) * 2 + 6;
-                ctx.fillRect(x, waveY, 4, 2);
-            }
-
-            ctx.fillStyle = '#0f172a';
-            for (let x = 4; x < V_WIDTH; x += 12) {
-                const waveY = oceanY + Math.cos((x - frameCount * 1.5) * 0.04) * 3 + 20;
-                ctx.fillRect(x, waveY, 6, 2);
-            }
-
-            // 5. Draw Pixel Ship (Moving smoothly)
-            const shipX = (V_WIDTH / 2 - 30) + Math.sin(frameCount * 0.02) * 15;
-            const shipY = oceanY - 12 + Math.sin(frameCount * 0.08) * 1.5; // Pitching on wave
-
-            drawPixelShip(shipX, shipY);
-
-            requestAnimationFrame(drawPixelScene);
         }
 
-        // --- Helper: Draw Pixel Cloud ---
-        function drawCloud(x, y) {
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
-            ctx.fillRect(x, y, 24, 6);
-            ctx.fillRect(x + 4, y - 4, 16, 4);
-            ctx.fillRect(x + 8, y - 8, 8, 4);
+        // 2. Glowing Golden Sun with Light Rays
+        function drawSun() {
+            const sunX = W / 2;
+            const sunY = 100;
+
+            // Sun Glow Aura
+            ctx.fillStyle = 'rgba(244, 154, 55, 0.25)';
+            ctx.fillRect(sunX - 36, sunY - 36, 72, 72);
+            ctx.fillStyle = 'rgba(255, 217, 102, 0.4)';
+            ctx.fillRect(sunX - 26, sunY - 26, 52, 52);
+
+            // Sun Core
+            ctx.fillStyle = C.sunYellow;
+            ctx.fillRect(sunX - 18, sunY - 18, 36, 36);
+
+            // Corner cuts for rounded 16-bit circle
+            ctx.clearRect(sunX - 18, sunY - 18, 3, 3);
+            ctx.clearRect(sunX + 15, sunY - 18, 3, 3);
+            ctx.clearRect(sunX - 18, sunY + 15, 3, 3);
+            ctx.clearRect(sunX + 15, sunY + 15, 3, 3);
+
+            // Sun Rays (Rotating subtle glow)
+            ctx.fillStyle = 'rgba(255, 217, 102, 0.08)';
+            const rayOffset = (frame * 0.2) % 20;
+            ctx.fillRect(sunX - 80 + rayOffset, sunY - 90, 20, 120);
+            ctx.fillRect(sunX + 40 - rayOffset, sunY - 90, 15, 120);
         }
 
-        // --- Helper: Draw Detailed Pixel Cargo/Tanker Ship ---
-        function drawPixelShip(x, y) {
-            // Ship Hull (Dark Blue/Black)
-            ctx.fillStyle = '#0f172a';
-            ctx.fillRect(x, y + 8, 44, 8);
-            ctx.fillRect(x + 4, y + 16, 36, 4); // Bottom hull taper
+        // 3. Pixel RPG Clouds with Shading
+        function drawCloud(x, y, scale) {
+            ctx.fillStyle = C.cloudDark;
+            // Base shadow
+            ctx.fillRect(x, y + 4, 40 * scale, 12 * scale);
+            ctx.fillRect(x + 6 * scale, y, 28 * scale, 16 * scale);
 
-            // Red Waterline
-            ctx.fillStyle = '#991b1b';
-            ctx.fillRect(x + 2, y + 14, 40, 2);
+            // Highlight top
+            ctx.fillStyle = C.cloudLight;
+            ctx.fillRect(x + 4 * scale, y, 30 * scale, 8 * scale);
+            ctx.fillRect(x + 10 * scale, y - 4 * scale, 18 * scale, 6 * scale);
+        }
 
-            // Superstructure / Cabin (White)
-            ctx.fillStyle = '#f8fafc';
-            ctx.fillRect(x + 6, y, 10, 8);
-            ctx.fillRect(x + 8, y - 4, 6, 4);
+        // 4. Multi-Layer Ocean Waves with Sun Reflection
+        function drawOcean() {
+            const seaY = 122;
 
-            // Funnel / Chimney
-            ctx.fillStyle = '#b45309';
-            ctx.fillRect(x + 20, y + 2, 4, 6);
+            // Ocean Base Colors
+            ctx.fillStyle = C.seaMid;
+            ctx.fillRect(0, seaY, W, H - seaY);
+
+            ctx.fillStyle = C.seaDeep;
+            ctx.fillRect(0, seaY + 45, W, H - seaY - 45);
+
+            // Sun Reflection Trail
+            const sunX = W / 2;
+            for (let y = seaY; y < H; y += 3) {
+                const progress = (y - seaY) / (H - seaY);
+                const width = 12 + progress * 90 + Math.sin(y * 0.3 + frame * 0.08) * 8;
+                ctx.fillStyle = (y % 6 === 0) ? C.sunYellow : C.sunGlow;
+                ctx.fillRect(sunX - width / 2, y, width, 1.5);
+            }
+
+            // Animated Wave Crests (Foam)
+            for (let i = 0; i < 25; i++) {
+                const wx = (i * 37 + frame * 0.8) % (W + 40) - 20;
+                const wy = seaY + (i * 7) % 110;
+                const wWidth = 10 + (i % 4) * 6;
+
+                ctx.fillStyle = C.seaBright;
+                ctx.fillRect(wx, wy, wWidth, 2);
+                ctx.fillStyle = C.seaFoam;
+                ctx.fillRect(wx + 2, wy, wWidth / 2, 1);
+            }
+        }
+
+        // 5. Detailed 16-Bit Container / Merchant Vessel
+        function drawShip(x, y) {
+            // Bobbing & Pitching Motion
+            const bobY = y + Math.sin(frame * 0.06) * 2.5;
+            const pitch = Math.cos(frame * 0.06) * 0.5;
+
+            ctx.save();
+            ctx.translate(x + 35, bobY + 15);
+            ctx.rotate(pitch * Math.PI / 180);
+            ctx.translate(- (x + 35), - (bobY + 15));
+
+            // Ship Hull Red Bottom
+            ctx.fillStyle = C.shipRed;
+            ctx.fillRect(x + 4, bobY + 16, 62, 5);
+            ctx.fillRect(x + 8, bobY + 21, 52, 3);
+
+            // Hull Main Body (Dark Metal)
+            ctx.fillStyle = C.shipHull;
+            ctx.fillRect(x, bobY + 8, 68, 8);
+            ctx.fillRect(x + 2, bobY + 6, 64, 2);
+
+            // Deck Line
+            ctx.fillStyle = C.shipDeck;
+            ctx.fillRect(x + 4, bobY + 5, 58, 2);
+
+            // Cargo Containers (Pixel Stack)
+            const colors = ['#2b5784', '#a82424', '#2e6f40', '#d47b1e'];
+            for (let c = 0; c < 4; c++) {
+                ctx.fillStyle = colors[c % colors.length];
+                ctx.fillRect(x + 10 + c * 9, bobY - 1, 8, 6);
+                ctx.fillStyle = '#000000';
+                ctx.fillRect(x + 10 + c * 9, bobY - 1, 8, 1); // outline
+            }
+
+            // Bridge / Cabin
+            ctx.fillStyle = C.shipCabin;
+            ctx.fillRect(x + 48, bobY - 8, 14, 13);
+            ctx.fillStyle = '#1e293b'; // Windows
+            ctx.fillRect(x + 50, bobY - 5, 10, 3);
+
+            // Funnel & Chimney Smoke
+            ctx.fillStyle = C.shipRed;
+            ctx.fillRect(x + 54, bobY - 14, 5, 6);
             ctx.fillStyle = '#000000';
-            ctx.fillRect(x + 20, y + 2, 4, 1);
+            ctx.fillRect(x + 54, bobY - 14, 5, 1);
 
             // Smoke Particles
-            if (frameCount % 20 < 10) {
-                ctx.fillStyle = 'rgba(200, 200, 200, 0.5)';
-                ctx.fillRect(x + 22 + (frameCount % 30) * 0.3, y - 6 - (frameCount % 15) * 0.4, 3, 3);
+            for (let s = 0; s < 3; s++) {
+                const smokeX = x + 51 - ((frame * 0.5 + s * 12) % 30);
+                const smokeY = bobY - 16 - ((frame * 0.3 + s * 8) % 20);
+                const smokeSize = 2 + s;
+                ctx.fillStyle = 'rgba(220, 220, 230, 0.5)';
+                ctx.fillRect(smokeX, smokeY, smokeSize, smokeSize);
             }
 
-            // Mast / Antenna
-            ctx.fillStyle = '#475569';
-            ctx.fillRect(x + 36, y - 2, 1, 10);
+            // Mast / Antenna & Flag
+            ctx.fillStyle = '#64748b';
+            ctx.fillRect(x + 60, bobY - 16, 1, 8);
+            ctx.fillStyle = C.shipGold; // Flag
+            ctx.fillRect(x + 61 + Math.sin(frame * 0.2), bobY - 16, 4, 3);
 
-            // Cargo / Deck Details
-            ctx.fillStyle = '#0284c7';
-            ctx.fillRect(x + 18, y + 6, 6, 2);
-            ctx.fillRect(x + 26, y + 6, 6, 2);
+            // Bow Water Splashing / Foam
+            ctx.fillStyle = C.seaFoam;
+            ctx.fillRect(x + 66 + (frame % 4), bobY + 14, 4, 2);
+            ctx.fillRect(x - 3 - (frame % 3), bobY + 15, 5, 2);
 
-            // Bow Wave Foam
-            ctx.fillStyle = '#ffffff';
-            ctx.fillRect(x + 42 + (frameCount % 4), y + 14, 3, 2);
+            ctx.restore();
         }
 
-        // Start Animation Loop
-        drawPixelScene();
+        // --- MAIN RENDER LOOP ---
+        function renderScene() {
+            frame++;
 
-        // --- 2. Web Audio API (Synthesized Chiptune Ocean Sound) ---
+            // Clear
+            ctx.clearRect(0, 0, W, H);
+
+            // 1. Sky & Sun
+            draw16BitSky();
+            drawSun();
+
+            // 2. Clouds Moving Slowly
+            drawCloud(((frame * 0.15) % (W + 80)) - 60, 20, 1);
+            drawCloud(((frame * 0.1) + 220) % (W + 80) - 60, 35, 0.8);
+
+            // 3. Ocean Surface
+            drawOcean();
+
+            // 4. Ship sailing toward sun
+            const shipX = (W / 2 - 35) + Math.sin(frame * 0.01) * 20;
+            drawShip(shipX, 112);
+
+            // 5. Render Sparkle Particles
+            for (let i = particles.length - 1; i >= 0; i--) {
+                const p = particles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+                p.life--;
+                ctx.fillStyle = p.color;
+                ctx.fillRect(p.x, p.y, p.size, p.size);
+
+                if (p.life <= 0) particles.splice(i, 1);
+            }
+
+            requestAnimationFrame(renderScene);
+        }
+
+        renderScene();
+
+        // --- 2. CHIPTUNE AUDIO & SOUND EFFECTS (Web Audio API) ---
         let audioCtx = null;
-        let isPlaying = false;
-        let noiseNode = null;
+        let isMuted = true;
 
-        function initAudio() {
-            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            
-            // Create Ambient Sea Wave Noise Buffer
-            const bufferSize = audioCtx.sampleRate * 2;
-            const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-            const output = noiseBuffer.getChannelData(0);
+        function playRetroClickSound() {
+            if (!audioCtx) return;
+            try {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'square';
+                osc.frequency.setValueAtTime(440, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.08);
 
-            for (let i = 0; i < bufferSize; i++) {
-                output[i] = Math.random() * 2 - 1;
-            }
+                gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+                gain.gain.linearRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
 
-            noiseNode = audioCtx.createBufferSource();
-            noiseNode.buffer = noiseBuffer;
-            noiseNode.loop = true;
-
-            // Lowpass Filter for Ocean Waves
-            const filter = audioCtx.createBiquadFilter();
-            filter.type = 'lowpass';
-            filter.frequency.setValueAtTime(300, audioCtx.currentTime);
-
-            // Gain / Volume LFO for wave swelling
-            const gainNode = audioCtx.createGain();
-            gainNode.gain.setValueAtTime(0.05, audioCtx.currentTime);
-
-            // Connect Nodes
-            noiseNode.connect(filter);
-            filter.connect(gainNode);
-            gainNode.connect(audioCtx.destination);
-
-            noiseNode.start();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.08);
+            } catch (e) {}
         }
 
-        const audioBtn = document.getElementById('audio-toggle');
+        // Sparkle Button Click Event
+        document.getElementById('sparkle-btn').addEventListener('click', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const canvasX = (e.clientX - rect.left) * (W / rect.width);
+            const canvasY = (e.clientY - rect.top) * (H / rect.height);
+
+            createSparkle(W / 2, H / 2);
+            playRetroClickSound();
+        });
+
+        // Add Click Sparkles & Sound to all Buttons & Cards
+        document.querySelectorAll('.rpg-btn, article').forEach(el => {
+            el.addEventListener('click', () => {
+                playRetroClickSound();
+                createSparkle(W / 2 + (Math.random() - 0.5) * 100, H / 2 + (Math.random() - 0.5) * 40);
+            });
+        });
+
+        // BGM Audio Controller
+        const audioBtn = document.getElementById('audio-btn');
         const audioIcon = document.getElementById('audio-icon');
         const audioText = document.getElementById('audio-text');
 
         audioBtn.addEventListener('click', () => {
             if (!audioCtx) {
-                initAudio();
-                isPlaying = true;
-                audioIcon.textContent = '🔊';
-                audioText.textContent = 'SOUND ON';
-            } else if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
-                isPlaying = true;
-                audioIcon.textContent = '🔊';
-                audioText.textContent = 'SOUND ON';
-            } else if (audioCtx.state === 'running') {
-                audioCtx.suspend();
-                isPlaying = false;
-                audioIcon.textContent = '🔇';
-                audioText.textContent = 'SOUND OFF';
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             }
+
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+
+            isMuted = !isMuted;
+            audioIcon.textContent = isMuted ? '🔇' : '🔊';
+            audioText.textContent = isMuted ? 'BGM OFF' : 'BGM ON';
         });
     </script>
 </body>
