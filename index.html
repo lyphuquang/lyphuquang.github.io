@@ -3,52 +3,428 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog Cá Nhân | Lý Phú Quảng</title>
+    <title> 小光 | Maritime Pixel Journey</title>
+    <!-- Google Fonts Pixel -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        /* Retro Pixel Rules & Custom Styling */
+        * {
+            font-family: 'Press Start 2P', monospace;
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f6f9;
-            color: #333;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            background-color: #0f172a;
+            color: #f8fafc;
+            overflow-x: hidden;
         }
-        .card {
-            background: #ffffff;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-            max-width: 500px;
-            text-align: center;
+
+        /* Pixel Border Container */
+        .pixel-box {
+            background: #1e293b;
+            border: 4px solid #f59e0b;
+            box-shadow: 
+                -4px 0 0 0 #000,
+                4px 0 0 0 #000,
+                0 -4px 0 0 #000,
+                0 4px 0 0 #000,
+                8px 8px 0px 0px rgba(0,0,0,0.5);
+            position: relative;
         }
-        h1 {
-            color: #0056b3;
-            margin-bottom: 10px;
+
+        .pixel-box-blue {
+            background: #0f172a;
+            border: 4px solid #38bdf8;
+            box-shadow: 
+                -4px 0 0 0 #000,
+                4px 0 0 0 #000,
+                0 -4px 0 0 #000,
+                0 4px 0 0 #000,
+                6px 6px 0px 0px rgba(0,0,0,0.5);
         }
-        p {
-            line-height: 1.6;
-            color: #555;
+
+        .pixel-btn {
+            background-color: #f59e0b;
+            color: #000;
+            border: none;
+            padding: 10px 16px;
+            cursor: pointer;
+            box-shadow: 
+                -3px 0 0 0 #000,
+                3px 0 0 0 #000,
+                0 -3px 0 0 #000,
+                0 3px 0 0 #000,
+                0 4px 0 0 #b45309;
+            transition: all 0.1s ease;
         }
-        .tag {
+
+        .pixel-btn:hover {
+            background-color: #fbbf24;
+            transform: translateY(-2px);
+        }
+
+        .pixel-btn:active {
+            transform: translateY(2px);
+            box-shadow: 
+                -3px 0 0 0 #000,
+                3px 0 0 0 #000,
+                0 -3px 0 0 #000,
+                0 3px 0 0 #000,
+                0 1px 0 0 #b45309;
+        }
+
+        .pixel-tag {
             display: inline-block;
-            background: #e1f0ff;
-            color: #0056b3;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.9em;
-            margin-top: 15px;
+            background: #0284c7;
+            color: #ffffff;
+            padding: 6px 10px;
+            font-size: 10px;
+            border: 2px solid #000;
+            box-shadow: 2px 2px 0px #000;
+        }
+
+        /* Canvas Horizon Container */
+        #canvas-container {
+            width: 100%;
+            height: 320px;
+            position: relative;
+            background: #000;
+            border-bottom: 4px solid #f59e0b;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+            image-rendering: pixelated;
+        }
+
+        /* Scrollbar Retro Style */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #f59e0b;
+            border: 2px solid #000;
         }
     </style>
 </head>
-<body>
-    <div class="card">
-        <h1>Chào mừng bạn đến với Website của tôi!</h1>
-        <p>Đây là trang cá nhân lưu trữ trên GitHub Pages.</p>
-        <p>Nơi chia sẻ kiến thức, hành trình học tập và những trải nghiệm thực tế.</p>
-        <span class="tag">#Maritime #Tech #Blog</span>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Top Pixel Banner & Controls -->
+    <header class="bg-slate-900 border-b-4 border-black p-4 flex justify-between items-center z-10">
+        <div class="flex items-center space-x-2">
+            <span class="text-amber-400 text-sm md:text-base">⚓ LY PHU QUANG</span>
+        </div>
+        <div class="flex items-center space-x-3">
+            <button id="audio-toggle" class="pixel-btn text-xs flex items-center gap-2">
+                <span id="audio-icon">🔇</span> <span id="audio-text">SOUND OFF</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- 8-Bit Pixel Canvas Scene -->
+    <div id="canvas-container">
+        <canvas id="pixelCanvas"></canvas>
     </div>
+
+    <!-- Main Content Container -->
+    <main class="max-w-4xl mx-auto p-4 md:p-8 flex-grow w-full space-y-8">
+
+        <!-- Welcome Banner -->
+        <section class="pixel-box p-6 text-center space-y-4">
+            <h1 class="text-amber-400 text-sm md:text-lg leading-relaxed">
+                CHÀO MỪNG ĐẾN VỚI HÀNH TRÌNH RA KHƠI
+            </h1>
+            <p class="text-xs text-slate-300 leading-loose">
+                Nơi chia sẻ góc nhìn về Hàng hải, Công nghệ AI & Những hành trình khám phá tri thức mới.
+            </p>
+            <div class="flex justify-center gap-2 flex-wrap pt-2">
+                <span class="pixel-tag">#MARITIME</span>
+                <span class="pixel-tag">#TECH_AI</span>
+                <span class="pixel-tag">#BLOG_JOURNAL</span>
+            </div>
+        </section>
+
+        <!-- About & Latest Articles Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+            <!-- Profile Sidebar -->
+            <div class="pixel-box-blue p-5 md:col-span-1 space-y-4">
+                <div class="text-center space-y-2">
+                    <div class="w-16 h-16 mx-auto bg-amber-400 border-2 border-black flex items-center justify-center text-2xl">
+                        ⚓
+                    </div>
+                    <h2 class="text-sky-400 text-xs">LÝ PHÚ QUẢNG</h2>
+                    <p class="text-[10px] text-slate-400">Maritime & Tech Explorer</p>
+                </div>
+                <hr class="border-dashed border-sky-800">
+                <div class="text-[10px] leading-relaxed text-slate-300 space-y-3">
+                    <p>📍 Quản lý thông tin & Chia sẻ kiến thức hàng hải.</p>
+                    <p>💻 Nghiên cứu 🖥️ AI local, tự động hóa & lập trình web.</p>
+                </div>
+            </div>
+
+            <!-- Articles List -->
+            <div class="md:col-span-2 space-y-4">
+                <h3 class="text-amber-400 text-xs mb-2">>>> BÀI VIẾT MỚI NHẤT</h3>
+
+                <!-- Article Card 1 -->
+                <article class="pixel-box p-4 space-y-2 hover:border-amber-300 transition-colors cursor-pointer">
+                    <div class="flex justify-between items-center text-[9px] text-amber-500">
+                        <span>2026-10-23</span>
+                        <span>[ HÀNG HẢI ]</span>
+                    </div>
+                    <h4 class="text-xs text-white leading-normal">
+                        Hành trình từ Trader đến Thế giới Vận tải Biển
+                    </h4>
+                    <p class="text-[10px] text-slate-400 leading-relaxed">
+                        Những trải nghiệm thực tế, góc nhìn công nghệ và sự chuẩn bị khi bước vào môi trường vận tải biển quốc tế...
+                    </p>
+                </article>
+
+                <!-- Article Card 2 -->
+                <article class="pixel-box p-4 space-y-2 hover:border-amber-300 transition-colors cursor-pointer">
+                    <div class="flex justify-between items-center text-[9px] text-amber-500">
+                        <span>2026-10-20</span>
+                        <span>[ AI & TECH ]</span>
+                    </div>
+                    <h4 class="text-xs text-white leading-normal">
+                        Tối ưu hóa Local AI trên máy trạm Workstation
+                    </h4>
+                    <p class="text-[10px] text-slate-400 leading-relaxed">
+                        Trải nghiệm chạy Ollama, quản lý VRAM GPU và tối ưu các mô hình ngôn ngữ cho tác vụ công việc thực tế...
+                    </p>
+                </article>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Retro Footer -->
+    <footer class="bg-black border-t-4 border-slate-800 p-4 text-center text-[9px] text-slate-500">
+        <p>© 2026 LY PHU QUANG • BUILT WITH GITHUB PAGES & 8-BIT CANVAS</p>
+    </footer>
+
+    <!-- JavaScript Pixel Canvas & Web Audio -->
+    <script>
+        // --- 1. Canvas Setup & Pixel Graphics Engine ---
+        const canvas = document.getElementById('pixelCanvas');
+        const ctx = canvas.getContext('2d');
+        const container = document.getElementById('canvas-container');
+
+        // Low internal resolution for authentic pixel art scale
+        const V_WIDTH = 320;
+        const V_HEIGHT = 160;
+
+        function resizeCanvas() {
+            canvas.width = V_WIDTH;
+            canvas.height = V_HEIGHT;
+        }
+        resizeCanvas();
+
+        let frameCount = 0;
+
+        // Wave parameters
+        const waveOffset = 0;
+
+        // --- 8-Bit Pixel Renderer ---
+        function drawPixelScene() {
+            frameCount++;
+
+            // Clear Background
+            ctx.fillStyle = '#0f172a';
+            ctx.fillRect(0, 0, V_WIDTH, V_HEIGHT);
+
+            // 1. Sky Gradient (Pixelated rows)
+            const skyColors = [
+                '#1e1b4b', '#311042', '#4c0519', '#831843', 
+                '#9f1239', '#be123c', '#fb7185', '#fde047'
+            ];
+            const skyHeight = 90;
+            const bandHeight = skyHeight / skyColors.length;
+
+            for (let i = 0; i < skyColors.length; i++) {
+                ctx.fillStyle = skyColors[i];
+                ctx.fillRect(0, i * bandHeight, V_WIDTH, bandHeight + 1);
+            }
+
+            // 2. Pixel Sun
+            const sunX = V_WIDTH / 2;
+            const sunY = 62;
+            const sunRadius = 22;
+
+            ctx.fillStyle = '#fef08a';
+            ctx.beginPath();
+            ctx.arc(sunX, sunY, sunRadius, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Pixel Sun Glow Ring
+            ctx.fillStyle = 'rgba(253, 224, 71, 0.3)';
+            ctx.fillRect(sunX - sunRadius - 4, sunY - 2, (sunRadius + 4) * 2, 4);
+
+            // 3. Floating Clouds (Pixelated)
+            drawCloud((frameCount * 0.2) % (V_WIDTH + 60) - 40, 20);
+            drawCloud(((frameCount * 0.15) + 160) % (V_WIDTH + 60) - 40, 35);
+
+            // 4. Ocean Surface
+            const oceanY = skyHeight;
+            const oceanHeight = V_HEIGHT - oceanY;
+
+            ctx.fillStyle = '#0284c7';
+            ctx.fillRect(0, oceanY, V_WIDTH, oceanHeight);
+
+            // Sun Reflection on Water (Pixel Stripes)
+            for (let y = oceanY + 2; y < V_HEIGHT; y += 4) {
+                const lineWidth = Math.max(2, (y - oceanY) * 1.5 + Math.sin(y + frameCount * 0.1) * 6);
+                const alpha = Math.max(0.1, 1 - (y - oceanY) / oceanHeight);
+                ctx.fillStyle = `rgba(254, 240, 138, ${alpha})`;
+                ctx.fillRect(sunX - lineWidth / 2, y, lineWidth, 2);
+            }
+
+            // Ocean Waves Animation
+            ctx.fillStyle = '#0369a1';
+            for (let x = 0; x < V_WIDTH; x += 8) {
+                const waveY = oceanY + Math.sin((x + frameCount * 2) * 0.05) * 2 + 6;
+                ctx.fillRect(x, waveY, 4, 2);
+            }
+
+            ctx.fillStyle = '#0f172a';
+            for (let x = 4; x < V_WIDTH; x += 12) {
+                const waveY = oceanY + Math.cos((x - frameCount * 1.5) * 0.04) * 3 + 20;
+                ctx.fillRect(x, waveY, 6, 2);
+            }
+
+            // 5. Draw Pixel Ship (Moving smoothly)
+            const shipX = (V_WIDTH / 2 - 30) + Math.sin(frameCount * 0.02) * 15;
+            const shipY = oceanY - 12 + Math.sin(frameCount * 0.08) * 1.5; // Pitching on wave
+
+            drawPixelShip(shipX, shipY);
+
+            requestAnimationFrame(drawPixelScene);
+        }
+
+        // --- Helper: Draw Pixel Cloud ---
+        function drawCloud(x, y) {
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+            ctx.fillRect(x, y, 24, 6);
+            ctx.fillRect(x + 4, y - 4, 16, 4);
+            ctx.fillRect(x + 8, y - 8, 8, 4);
+        }
+
+        // --- Helper: Draw Detailed Pixel Cargo/Tanker Ship ---
+        function drawPixelShip(x, y) {
+            // Ship Hull (Dark Blue/Black)
+            ctx.fillStyle = '#0f172a';
+            ctx.fillRect(x, y + 8, 44, 8);
+            ctx.fillRect(x + 4, y + 16, 36, 4); // Bottom hull taper
+
+            // Red Waterline
+            ctx.fillStyle = '#991b1b';
+            ctx.fillRect(x + 2, y + 14, 40, 2);
+
+            // Superstructure / Cabin (White)
+            ctx.fillStyle = '#f8fafc';
+            ctx.fillRect(x + 6, y, 10, 8);
+            ctx.fillRect(x + 8, y - 4, 6, 4);
+
+            // Funnel / Chimney
+            ctx.fillStyle = '#b45309';
+            ctx.fillRect(x + 20, y + 2, 4, 6);
+            ctx.fillStyle = '#000000';
+            ctx.fillRect(x + 20, y + 2, 4, 1);
+
+            // Smoke Particles
+            if (frameCount % 20 < 10) {
+                ctx.fillStyle = 'rgba(200, 200, 200, 0.5)';
+                ctx.fillRect(x + 22 + (frameCount % 30) * 0.3, y - 6 - (frameCount % 15) * 0.4, 3, 3);
+            }
+
+            // Mast / Antenna
+            ctx.fillStyle = '#475569';
+            ctx.fillRect(x + 36, y - 2, 1, 10);
+
+            // Cargo / Deck Details
+            ctx.fillStyle = '#0284c7';
+            ctx.fillRect(x + 18, y + 6, 6, 2);
+            ctx.fillRect(x + 26, y + 6, 6, 2);
+
+            // Bow Wave Foam
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(x + 42 + (frameCount % 4), y + 14, 3, 2);
+        }
+
+        // Start Animation Loop
+        drawPixelScene();
+
+        // --- 2. Web Audio API (Synthesized Chiptune Ocean Sound) ---
+        let audioCtx = null;
+        let isPlaying = false;
+        let noiseNode = null;
+
+        function initAudio() {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            
+            // Create Ambient Sea Wave Noise Buffer
+            const bufferSize = audioCtx.sampleRate * 2;
+            const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+            const output = noiseBuffer.getChannelData(0);
+
+            for (let i = 0; i < bufferSize; i++) {
+                output[i] = Math.random() * 2 - 1;
+            }
+
+            noiseNode = audioCtx.createBufferSource();
+            noiseNode.buffer = noiseBuffer;
+            noiseNode.loop = true;
+
+            // Lowpass Filter for Ocean Waves
+            const filter = audioCtx.createBiquadFilter();
+            filter.type = 'lowpass';
+            filter.frequency.setValueAtTime(300, audioCtx.currentTime);
+
+            // Gain / Volume LFO for wave swelling
+            const gainNode = audioCtx.createGain();
+            gainNode.gain.setValueAtTime(0.05, audioCtx.currentTime);
+
+            // Connect Nodes
+            noiseNode.connect(filter);
+            filter.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+
+            noiseNode.start();
+        }
+
+        const audioBtn = document.getElementById('audio-toggle');
+        const audioIcon = document.getElementById('audio-icon');
+        const audioText = document.getElementById('audio-text');
+
+        audioBtn.addEventListener('click', () => {
+            if (!audioCtx) {
+                initAudio();
+                isPlaying = true;
+                audioIcon.textContent = '🔊';
+                audioText.textContent = 'SOUND ON';
+            } else if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+                isPlaying = true;
+                audioIcon.textContent = '🔊';
+                audioText.textContent = 'SOUND ON';
+            } else if (audioCtx.state === 'running') {
+                audioCtx.suspend();
+                isPlaying = false;
+                audioIcon.textContent = '🔇';
+                audioText.textContent = 'SOUND OFF';
+            }
+        });
+    </script>
 </body>
 </html>
